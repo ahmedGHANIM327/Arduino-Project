@@ -84,6 +84,8 @@ target/
 *.pyc
 __pycache__/
 local_settings.py
+Pipfile
+Pipfile.lock
 
 .env
 db.sqlite3
