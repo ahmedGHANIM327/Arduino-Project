@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import EmployeeSerializer
-from .models import Employee
+from .serializers import EmployeeSerializer , GroupSerializer
+from .models import Employee , Group
 # Create your views here.
 
+
+# Employee Model management
 @api_view(['GET'])
 def allEmployees(request):
     # Get all objects
@@ -48,3 +50,12 @@ def delEmployee(request,id):
     employee = Employee.objects.get(id=id)
     employee.delete()
     return Response("employee deleted")
+
+# Group Model management
+@api_view(['GET'])
+def allGroups(request):
+    # Get all objects
+    groups= Group.objects.all()
+    #serialize this object
+    serialization = GroupSerializer(groups , many=True)
+    return Response(serialization.data)
