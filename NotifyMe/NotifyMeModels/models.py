@@ -9,4 +9,4 @@ class Employee(models.Model):
 # Group
 class Group(models.Model):
     name = models.CharField(max_length=150 , null=False)
-    employees = models.ManyToManyField(Employee , related_name='employees')
+    employees = models.ManyToManyField(Employee , related_name='employees' , blank=True ,null=True)

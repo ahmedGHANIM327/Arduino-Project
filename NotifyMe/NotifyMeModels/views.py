@@ -6,6 +6,8 @@ from .models import Employee , Group
 # Create your views here.
 
 
+############################### Employee ###########################
+
 # Employee Model management
 @api_view(['GET'])
 def allEmployees(request):
@@ -51,6 +53,8 @@ def delEmployee(request,id):
     employee.delete()
     return Response("employee deleted")
 
+############################### Group ###########################
+
 # Group Model management
 @api_view(['GET'])
 def allGroups(request):
@@ -59,3 +63,38 @@ def allGroups(request):
     #serialize this object
     serialization = GroupSerializer(groups , many=True)
     return Response(serialization.data)
+
+#Get Group by ID
+@api_view(['GET'])
+def group(request , id):
+    # Get all objects
+    group = Group.objects.get(id=id)
+
+    #serialize this object
+    serialization = GroupSerializer(group)
+    return Response(serialization.data)
+
+
+#Add new group
+@api_view(['POST'])
+def addGroups(request):
+    serializer = GroupSerializer(data= request.data , many = True)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+#Update a group
+@api_view(['PUT'])
+def updateGroup(request,id):
+    group = Group.objects.get(id=id)
+    serializer = GroupSerializer(instance = group , data= request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+#del a group
+@api_view(['DELETE'])
+def delGroup(request,id):
+    group = Group.objects.get(id=id)
+    group.delete()
+    return Response("group deleted")

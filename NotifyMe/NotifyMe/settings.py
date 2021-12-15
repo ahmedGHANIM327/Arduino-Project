@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'NotifyMe.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'notifyme',
+        'NAME': 'notifyme_bd',
         'USER' : 'root',
         'PASSWORD' : '',
         'HOST' : 'localhost',
