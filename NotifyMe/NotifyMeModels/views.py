@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import EmployeeSerializer , GroupSerializer
-from .models import Employee , Group
+from .serializers import EmployeeSerializer , GroupSerializer, MessageSerializer
+from .models import Employee , Group , Message
 # Create your views here.
 
 
@@ -62,6 +62,22 @@ def employeeGroups(request , id):
     serialization = GroupSerializer(groups , many=True)
     return Response(serialization.data)
 
+#Add an employee to a group
+@api_view(['GET'])
+def addEmployeeToGroup(request,id_employee , id_group):
+    group = Group.objects.get(id=id_group)
+    group.employees.add(Employee.objects.get(id=id_employee))
+    group.save()
+    return Response("Employee added to group")
+
+#Remove an employee from a group
+@api_view(['GET'])
+def removeEmployeeFromGroup(request,id_employee , id_group):
+    group = Group.objects.get(id=id_group)
+    group.employees.remove(Employee.objects.get(id=id_employee))
+    group.save()
+    return Response("Employee "+str(id_employee)+" removed from group "+str(id_group))
+
 ############################### Group ###########################
 
 # Group Model management
@@ -107,3 +123,45 @@ def delGroup(request,id):
     group.delete()
     return Response("group deleted")
 
+################################## Message #################################
+# Get all messages
+@api_view(['GET'])
+def allMessages(request):
+    # Get all objects
+    messages= Message.objects.all()
+    #serialize this object
+    serialization = MessageSerializer(messages , many=True)
+    return Response(serialization.data)
+
+#Get Message by ID
+@api_view(['GET'])
+def message(request , id):
+    # Get all objects
+    message = Message.objects.get(id=id)
+    #serialize this object
+    serialization = MessageSerializer(message)
+    return Response(serialization.data)
+
+#Add new message
+@api_view(['POST'])
+def addMessages(request):
+    serializer = MessageSerializer(data= request.data , many = True)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+#Update a message
+@api_view(['PUT'])
+def updateMessage(request,id):
+    message = Message.objects.get(id=id)
+    serializer = MessageSerializer(instance = message , data= request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+#del a message
+@api_view(['DELETE'])
+def delMessage(request,id):
+    message = Message.objects.get(id=id)
+    message.delete()
+    return Response("message deleted")

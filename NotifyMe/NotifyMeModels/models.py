@@ -14,9 +14,9 @@ class Group(models.Model):
 
 # Message
 class Message(models.Model) :
-    date_sent = models.DateTimeField(default=timezone.now().ctime())
+    date_sent = models.DateTimeField(null=False , default=timezone.now())
     message_content = models.TextField(null=False)
-    message_destinations = models.ManyToManyField(Employee , related_name='destinations' )
-    number_seen = models.IntegerField(default=0)
+    message_destinations = models.ManyToManyField(Employee , related_name='destinations')
+    seen_by = models.ManyToManyField(Employee,related_name='employees_seen_message' , default=[] , blank=True)
     stat_message = models.CharField(max_length=1,default='R' , blank=False)
     
