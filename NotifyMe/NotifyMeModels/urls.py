@@ -8,6 +8,7 @@ urlpatterns = [
     path('addemployees/',views.addEmployees),
     path('updateemployee/<int:id>/',views.updateEmployee),
     path('deleteemployee/<int:id>/',views.delEmployee),
+    path('employeeGroups/<int:id>',views.employeeGroups),
     #Groups
     path('groups/',views.allGroups),
     path('group/<int:id>',views.group),

@@ -53,6 +53,15 @@ def delEmployee(request,id):
     employee.delete()
     return Response("employee deleted")
 
+# Get Groups of an Employee
+@api_view(['GET'])
+def employeeGroups(request , id):
+    # Get all groups that contains this employee 
+    groups= Group.objects.filter(employees=id)
+    #serialize this object
+    serialization = GroupSerializer(groups , many=True)
+    return Response(serialization.data)
+
 ############################### Group ###########################
 
 # Group Model management
@@ -69,7 +78,6 @@ def allGroups(request):
 def group(request , id):
     # Get all objects
     group = Group.objects.get(id=id)
-
     #serialize this object
     serialization = GroupSerializer(group)
     return Response(serialization.data)
@@ -98,3 +106,4 @@ def delGroup(request,id):
     group = Group.objects.get(id=id)
     group.delete()
     return Response("group deleted")
+
