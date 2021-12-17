@@ -1,0 +1,128 @@
+
+/*Styles for global element : header + sidenav*/
+.navbar
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+
+/* Styles for header */
+.header
+{
+    background-color: #222831;
+    height: 70px;
+}
+
+.header > .header-button
+{
+    color: #fff;
+    font-size: 40px;
+    position: absolute;
+    left: 25px;
+    top: 15px;
+    cursor: pointer;
+    transition: all 1s;
+}
+.header > .header-avatar
+{
+    position: absolute;
+    background-color: #fd7014;
+    right: 25px;
+    top: 15px;
+    cursor: pointer;
+    transition: all 1s;
+}
+
+.header-button:hover
+{
+    color: #fd7014;
+}
+
+/* Styles for navbar*/
+.sidenav
+{
+    position: absolute;
+    width: max-content;
+    background-color: #222831;
+    padding: 0 10px;
+    height: 96vh;
+    top: 70px;
+    transition: all 0.4s;
+    left: -100%;
+    padding-right: 0;
+}
+
+.sidenav.active
+{
+    left: 0;
+}
+.sidenav>ul
+{
+    list-style: none;
+    text-align: start;
+    margin: 0;
+    padding: 0;
+
+}
+
+.sidenav ul li
+{
+    margin: 18px 0;
+}
+
+.sidenav ul li:nth-child(1)
+{
+    margin-top: 40px;
+}
+
+.sidenav li a
+{
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    padding: 10px 40px;
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    transition: all 1s;
+}
+
+.sidenav li a>svg
+{
+    margin-right: 5px;
+}
+
+.sidenav li a:hover 
+{
+    background-color: #fd7014;
+}
+
+.sidenav li .activLink
+{
+    background-color: #fd7014;
+}
+
+.sidenav .deconnexion
+{
+    position: absolute;
+    bottom: 60px;
+    left: 25px;
+    transition: all 1s;
+}
+
+.sidenav .deconnexion:hover
+{
+    transform: scale(1.1);
+}
+
+/* Styles for main content */
+.main-content
+{
+    position: absolute;
+    top: 70px;
+}
