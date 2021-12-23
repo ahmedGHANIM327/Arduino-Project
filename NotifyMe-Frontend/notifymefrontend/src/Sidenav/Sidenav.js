@@ -8,7 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import { BrowserRouter as Router , Switch , Route, Routes , NavLink } from 'react-router-dom';
+import { BrowserRouter as Router , Route, Routes , NavLink } from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard'
 import Employees from '../Employees/Employees'
 import Messages from '../Messages/Messages'

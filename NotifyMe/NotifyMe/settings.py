@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-+8z)g7aia#u&mf^xm)!v9k+9y7fzc9-_axu#n2fy(+*$tk-ybe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'NotifyMeModels',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -46,9 +47,11 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'NotifyMe.urls'
@@ -118,6 +121,39 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+# CORS
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3001",
+    "http://localhost:3000",
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3001",
+    "http://localhost:3000",
+]
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
 
 
 # Static files (CSS, JavaScript, Images)
