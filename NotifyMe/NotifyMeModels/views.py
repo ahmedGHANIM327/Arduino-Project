@@ -78,6 +78,52 @@ def removeEmployeeFromGroup(request,id_employee , id_group):
     group.save()
     return Response("Employee "+str(id_employee)+" removed from group "+str(id_group))
 
+# View messages not yet seen
+#Function used when badge detected
+@api_view(['GET'])
+def viewMessagesByEmployee(request , id_employee):
+    # Get messages not yet seen by this employee 
+    messages = Message.objects.filter(message_destinations=id_employee)
+    messages = messages.exclude(seen_by = id_employee)
+    #serialize this object
+    serialization = MessageSerializer(messages , many=True)
+    for message in messages :
+        message.seen_by.add(Employee.objects.get(id=id_employee))
+        checkStatut(message.id)
+    return Response(serialization.data)
+
+#View messages sent to employee ( seen and not yet seen )
+#Function used by admin
+@api_view(['GET'])
+def employeeAllMessages(request , id_employee):
+    # Get all messages sent to this employee 
+    messages = Message.objects.filter(message_destinations=id_employee)
+
+    #serialize this object
+    serialization = MessageSerializer(messages , many=True)
+    return Response(serialization.data)
+
+#View messages seen by employee 
+#Function used by admin
+@api_view(['GET'])
+def messagesSeenByEmployee(request , id_employee):
+    # Get all messages seen by employee 
+    messages = Message.objects.filter(seen_by=id_employee)
+    #serialize this object
+    serialization = MessageSerializer(messages , many=True)
+    return Response(serialization.data)
+
+#View messages not yet seen by employee 
+#Function used by admin
+@api_view(['GET'])
+def messagesNotSeenByEmployee(request , id_employee):
+    # Get all messages not seen by employee 
+    messages = Message.objects.filter(message_destinations=id_employee)
+    messages = messages.exclude(seen_by = id_employee)
+    #serialize this object
+    serialization = MessageSerializer(messages , many=True)
+    return Response(serialization.data)
+
 ############################### Group ###########################
 
 # Group Model management
@@ -165,3 +211,28 @@ def delMessage(request,id):
     message = Message.objects.get(id=id)
     message.delete()
     return Response("message deleted")
+
+#View messages not yet seen by all destination 
+@api_view(['GET'])
+def messagesNotSeen(request):
+    # Get all messages not seen by all 
+    messages = Message.objects.filter(stat_message='R')
+    #serialize this object
+    serialization = MessageSerializer(messages , many=True)
+    return Response(serialization.data)
+
+#View messages seen by all destination 
+@api_view(['GET'])
+def messagesSeen(request):
+    # Get all messages not seen by all 
+    messages = Message.objects.filter(stat_message='V')
+    #serialize this object
+    serialization = MessageSerializer(messages , many=True)
+    return Response(serialization.data)
+
+#check message statut ( if all destinations have seen the message)
+def checkStatut(id):
+    message = Message.objects.get(id=id)
+    if message.seen_by.count() == message.message_destinations.count() :
+        message.stat_message = 'V'
+        message.save()
