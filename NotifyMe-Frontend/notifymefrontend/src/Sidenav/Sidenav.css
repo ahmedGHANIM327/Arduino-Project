@@ -125,4 +125,8 @@
 {
     position: absolute;
     top: 70px;
+    background-color: #ececec;
+    height: 100em;
+    width: 100%;
+    padding: 50px 0;
 }
