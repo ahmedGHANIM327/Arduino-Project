@@ -20,6 +20,10 @@ import TableRow from '@mui/material/TableRow';
 
 export default function Dashboard() {
 
+    function FilterMessagesSeen(message) {
+        return message.stat_message === 'V';
+    }
+
     //Retreive all employees
     const retrieveEmployees = async () => {
         const response = await api.get("/employees/");
@@ -35,14 +39,6 @@ export default function Dashboard() {
     }
 
     const [allMessages, setAllMessages] = useState([]);
-
-    //Retreive all messages Seen
-    const retrieveMessagesSeen = async () => {
-        const response = await api.get("/messagesSeen/");
-        return response.data;
-    }
-
-    const [allMessagesSeen, setAllMessagesSeen] = useState([]);
 
     //Retreive all groups
     const retrieveGroups = async () => {
@@ -63,11 +59,6 @@ export default function Dashboard() {
             if (allmessages) setAllMessages(allmessages);
         }
 
-        const getAllMessagesSeen = async () => {
-            const allmessagesseen = await retrieveMessagesSeen();
-            if (allmessagesseen) setAllMessagesSeen(allmessagesseen);
-        }
-
 
         const getAllGroups = async () => {
             const allgroups = await retrieveGroups();
@@ -77,7 +68,6 @@ export default function Dashboard() {
         getAllEmployees();
         getAllMessages();
         getAllGroups();
-        getAllMessagesSeen();
     }, [])
 
     return (
@@ -94,7 +84,7 @@ export default function Dashboard() {
                 </Grid>
                 <Grid  xs={12} lg={3} md={6}>
                     <div className='general_stats_item'>
-                        <h1>{allMessagesSeen.length} <RemoveRedEyeIcon /></h1>
+                        <h1>{allMessages.filter(FilterMessagesSeen).length} <RemoveRedEyeIcon /></h1>
                         <p>Messages Seen</p>
                     </div>
                 </Grid>
