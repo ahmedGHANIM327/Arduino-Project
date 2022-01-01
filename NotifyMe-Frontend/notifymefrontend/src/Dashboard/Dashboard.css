@@ -11,6 +11,17 @@
     padding: 5px 0;
     box-shadow: #222831 0px 5px 15px;
     transition: 500ms;
+    animation: scale 2s;
+}
+
+@keyframes scale {
+    from {
+        transform: scale(0.2);
+    }
+    to {
+        transform: scale(1);
+    }
+    
 }
 
 .general_stats_item:hover
@@ -47,6 +58,20 @@
 }
 
 /* Styles for tables */
+.head-table
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-messages label
+{
+    color: #fd7014;
+    font-weight: bold;
+}
+
 .stat-table
 {
     padding: 10px 27px;

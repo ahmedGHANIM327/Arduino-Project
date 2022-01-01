@@ -16,12 +16,28 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 export default function Dashboard() {
 
-    function FilterMessagesSeen(message) {
-        return message.stat_message === 'V';
+    const [messageShow, setMessageShow] = React.useState('all');
+
+    const handleChange = (event) => {
+        setMessageShow(event.target.value);
+    };
+
+    const FilterMessagesSeen = (message) => {
+        if(messageShow === 'all') {
+            return true;
+        } else if (messageShow === 'not seen') {
+            return message.stat_message === 'R';
+        } else if (messageShow === 'seen') {
+            return message.stat_message === 'V';
+        }
     }
 
     //Retreive all employees
@@ -107,7 +123,23 @@ export default function Dashboard() {
                 alignItems="flex-start">
                 
                 <Grid  className='stat-table' lg={12}>
-                    <h1>Messages</h1>
+                    <div className='head-table'>
+                        <h1 >Messages</h1>
+                        <FormControl className='filter-messages' variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="demo-simple-select-standard-label">Show</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            value={messageShow}
+                            onChange={handleChange}
+                            label="Show"
+                            >
+                            <MenuItem value={'all'}>All</MenuItem>
+                            <MenuItem value={'not seen'}>Not Seen Yet</MenuItem>
+                            <MenuItem value={'seen'}>Seen</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
                     <TableContainer  component={Paper}>
                         <Table sx={{ width: '100%' }} aria-label="simple table">
                             <TableHead>
@@ -119,7 +151,7 @@ export default function Dashboard() {
                             </TableRow>
                             </TableHead>
                             <TableBody>
-                            {allMessages.map((row) => (
+                            {allMessages.filter(FilterMessagesSeen).map((row) => (
                                 <TableRow
                                 key={row.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
