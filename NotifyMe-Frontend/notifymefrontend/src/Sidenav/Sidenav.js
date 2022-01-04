@@ -8,11 +8,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import {NavLink, Outlet } from 'react-router-dom';
+import {NavLink, Outlet , useNavigate } from 'react-router-dom';
 
 export default function Sidenav() {
 
     const [nav_opened , setNavOpened] = useState(false);
+    const navigate = useNavigate();
 
     return (
             <div id="sidenav">
@@ -28,7 +29,7 @@ export default function Sidenav() {
                         <li><NavLink to="/notifyme/employees" onClick={() => setNavOpened(!nav_opened)} className={({isActive}) => { return isActive ? "activLink" : ""}}><PersonIcon />Employees</NavLink></li>
                         <li><NavLink to="/notifyme/groups" onClick={() => setNavOpened(!nav_opened)} className={({isActive}) => { return isActive ? "activLink" : ""}}><GroupIcon />Groups</NavLink></li>
                     </ul>
-                    <Button className='deconnexion' variant="contained" startIcon={<KeyboardArrowLeftIcon />} color="error">Deconnexion</Button>
+                    <Button onClick={() => navigate('/')} className='deconnexion' variant="contained" startIcon={<KeyboardArrowLeftIcon />} color="error">Deconnexion</Button>
                 </div>
             </div>
             <div className='main-content'>

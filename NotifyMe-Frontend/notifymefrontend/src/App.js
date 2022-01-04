@@ -1,6 +1,6 @@
 import './App.css';
 import Sidenav from './Sidenav/Sidenav';
-import { BrowserRouter as Router , Route, Routes , NavLink } from 'react-router-dom';
+import { BrowserRouter as Router , Route, Routes } from 'react-router-dom';
 import Home from './HOME/Home';
 import Dashboard from './Dashboard/Dashboard'
 import Employees from './Employees/Employees'
