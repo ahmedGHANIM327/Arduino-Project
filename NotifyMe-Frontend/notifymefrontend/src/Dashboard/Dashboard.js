@@ -40,6 +40,18 @@ export default function Dashboard() {
         }
     }
 
+    //Get messages Seen
+    const getMessagesSeen = (message) => {
+            return message.stat_message === 'V';
+    }
+
+    //Sort messages
+    function sortMessages(a,b){  
+        var dateA = new Date(a.date_sent).getTime();
+        var dateB = new Date(b.date_sent).getTime();
+        return dateA > dateB ? -1 : 1;  
+    }; 
+
     //Retreive all employees
     const retrieveEmployees = async () => {
         const response = await api.get("/employees/");
@@ -100,7 +112,7 @@ export default function Dashboard() {
                 </Grid>
                 <Grid  xs={12} lg={3} md={6}>
                     <div className='general_stats_item'>
-                        <h1>{allMessages.filter(FilterMessagesSeen).length} <RemoveRedEyeIcon /></h1>
+                        <h1>{allMessages.filter(getMessagesSeen).length} <RemoveRedEyeIcon /></h1>
                         <p>Messages Seen</p>
                     </div>
                 </Grid>
@@ -134,7 +146,7 @@ export default function Dashboard() {
                             onChange={handleChange}
                             label="Show"
                             >
-                            <MenuItem value={'all'}>All</MenuItem>
+                            <MenuItem value={'all'}>All Messages</MenuItem>
                             <MenuItem value={'not seen'}>Not Seen Yet</MenuItem>
                             <MenuItem value={'seen'}>Seen</MenuItem>
                             </Select>
@@ -151,7 +163,7 @@ export default function Dashboard() {
                             </TableRow>
                             </TableHead>
                             <TableBody>
-                            {allMessages.filter(FilterMessagesSeen).map((row) => (
+                            {allMessages.filter(FilterMessagesSeen).sort(sortMessages).map((row) => (
                                 <TableRow
                                 key={row.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
