@@ -139,7 +139,6 @@ export default function Messages() {
     // Handler for delete message button
     const handleDeleteClick = () => {
         let id = msgid;
-        console.log("request to delete, ", id)
         const deleteMessage = async () => {
             await api.delete("/deletemessage/" + id + "/", id);
         }
@@ -157,7 +156,6 @@ export default function Messages() {
     let msgid;
     const handleClickcell = (e) => {
         msgid = e;
-        console.log("cell with id ", e)
     }
     // delete message button
     var deleteIcon = (<IconButton onClickCapture={handleDeleteClick}>
