@@ -7,6 +7,9 @@
     left: 0;
     height: 100%;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .connexion
@@ -20,4 +23,23 @@
 .connexion:hover
 {
     transform: scale(1.2);
+}
+
+#home h1
+{
+    color: #fff;
+    font-size: 60px;
+    font-weight: bolder;
+    animation: title 2s infinite;
+}
+
+@keyframes title {
+    from {
+        transform: scale(0.8);
+        color: #fff;
+    }
+    to {
+        transform: scale(1.5);
+        color: #fd7014;
+    }
 }

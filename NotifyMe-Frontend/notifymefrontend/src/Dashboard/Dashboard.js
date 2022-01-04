@@ -47,8 +47,8 @@ export default function Dashboard() {
 
     //Sort messages
     function sortMessages(a,b){  
-        var dateA = new Date(a.date_sent).getTime();
-        var dateB = new Date(b.date_sent).getTime();
+        var dateA = new Date(a.date_sent.substr(0, 19)).getTime();
+        var dateB = new Date(b.date_sent.substr(0, 19)).getTime();
         return dateA > dateB ? -1 : 1;  
     }; 
 

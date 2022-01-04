@@ -1,0 +1,87 @@
+#screen
+{
+    background-color: #222831;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0 35px;
+}
+
+#screen h1 .employeeName
+{
+    color: #fd7014;
+    font-weight: bolder;
+}
+
+#screen h1
+{
+    color: #fff;
+    margin-top: 55px;
+}
+
+#screen h2
+{
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+
+#screen h2 svg
+{
+    margin-right: 10px;
+}
+
+#screen .messages
+{
+    border: #fff 2px solid;
+    padding: 0 15px;
+    width: 80%;
+    margin: 40px 0;
+    border-radius: 25px;
+    background-color: #64686E;
+    animation: transit 1s;
+}
+
+@keyframes transit {
+    from {
+        transform: scale(0.3);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+#screen .messages .titles
+{
+    color: #fd7014;
+}
+
+#screen .messages .content
+{
+    color: #fff;
+    text-align: justify;
+    text-indent: 50px;
+    font-size: 20px;
+}
+
+#screen .messages .date
+{
+    color: #fd7014;
+    font-size: 20px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+#screen .finish
+{
+    transition: all 1s;
+}
+
+#screen .finish:hover
+{
+    transform: scale(1.2);
+}

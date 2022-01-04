@@ -2,6 +2,7 @@ import './App.css';
 import Sidenav from './Sidenav/Sidenav';
 import { BrowserRouter as Router , Route, Routes } from 'react-router-dom';
 import Home from './HOME/Home';
+import Screen from './Screen/Screen'
 import Dashboard from './Dashboard/Dashboard'
 import Employees from './Employees/Employees'
 import Messages from './Messages/Messages'
@@ -14,6 +15,7 @@ function App() {
             <div >
                 <Routes>
                     <Route path="/" exact={true} element={<Home />} />
+                    <Route path="/screen" exact={true} element={<Screen />} />
                     <Route path="/notifyme/" exact={true} element={<Sidenav />} >
                       <Route path="/notifyme/" exact={true} element={<Dashboard />} />
                       <Route path="/notifyme/employees" exact={true} element={<Employees />} />

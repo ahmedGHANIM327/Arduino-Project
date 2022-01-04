@@ -29,7 +29,7 @@ export default function Sidenav() {
                         <li><NavLink to="/notifyme/employees" onClick={() => setNavOpened(!nav_opened)} className={({isActive}) => { return isActive ? "activLink" : ""}}><PersonIcon />Employees</NavLink></li>
                         <li><NavLink to="/notifyme/groups" onClick={() => setNavOpened(!nav_opened)} className={({isActive}) => { return isActive ? "activLink" : ""}}><GroupIcon />Groups</NavLink></li>
                     </ul>
-                    <Button onClick={() => navigate('/')} className='deconnexion' variant="contained" startIcon={<KeyboardArrowLeftIcon />} color="error">Deconnexion</Button>
+                    <Button onClick={() => navigate('/')} className='deconnexion finish' variant="contained" startIcon={<KeyboardArrowLeftIcon />} color="error">Deconnexion</Button>
                 </div>
             </div>
             <div className='main-content'>
