@@ -102,7 +102,17 @@ export default function Messages() {
 
     // Event handler for the send button
     const handleClickSend = () => {
-
+        
+        if (!selectedEmployeesGroups) {
+            alert("Please select message destination");
+            console.log(textFieldValue)
+            return
+        }
+        if (!textFieldValue) {
+            alert("Messsage is empty !");
+            return
+        }
+        
         //Extract ids
         let selectedIds = [];
         selectedEmployeesGroups.forEach(e => {
