@@ -105,7 +105,6 @@ export default function Messages() {
         
         if (!selectedEmployeesGroups) {
             alert("Please select message destination");
-            console.log(textFieldValue)
             return
         }
         if (!textFieldValue) {
