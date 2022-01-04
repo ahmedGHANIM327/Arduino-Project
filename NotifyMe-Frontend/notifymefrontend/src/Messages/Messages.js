@@ -130,6 +130,8 @@ export default function Messages() {
             await api.post("/addmessages/", datasent);
         }
         addNewMessage();
+        setOpen(false);
+        window.location.reload();
     };
 
     // Pop-up send messsage
@@ -143,6 +145,7 @@ export default function Messages() {
             await api.delete("/deletemessage/" + id + "/", id);
         }
         deleteMessage();
+        window.location.reload();
     }
     //handle open pop-up for sending msg
     const handleClickOpen = () => {
