@@ -13,7 +13,7 @@ export default function Screen() {
 
     //Retreive all messages
     const retrieveMessagesNotSeen = async () => {
-        const response = await api.get("/viewMessagesNotSeen/1");
+        const response = await api.get("/viewMessagesNotSeen/5");
         return response.data;
     }
 

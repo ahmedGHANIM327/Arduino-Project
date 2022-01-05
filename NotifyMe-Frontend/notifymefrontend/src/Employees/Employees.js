@@ -172,11 +172,11 @@ export default function Employees() {
             alert("Employee Email field is empty !");
             return
         }
-        let data = [{
+        let data = {
             id_badge: editedEmployeeBadgeID,
             name: editedEmployeeName,
             email: editedEmployeeEmail,
-        }];
+        }
         const editEmployee = async () => {
             await api.put("/updateemployee/" + employeeId + "/", data);
         }
