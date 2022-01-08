@@ -27,6 +27,9 @@ import IconButton from '@mui/material/IconButton'
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import Typography from '@mui/material/Typography';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 export default function Messages() {
     let selectedEmployeesGroups;
@@ -102,7 +105,7 @@ export default function Messages() {
 
     // Event handler for the send button
     const handleClickSend = () => {
-        
+
         if (!selectedEmployeesGroups) {
             alert("Please select message destination");
             return
@@ -111,7 +114,7 @@ export default function Messages() {
             alert("Messsage is empty !");
             return
         }
-        
+
         //Extract ids
         let selectedIds = [];
         selectedEmployeesGroups.forEach(e => {
@@ -136,7 +139,9 @@ export default function Messages() {
 
     // Pop-up send messsage
     const [open, setOpen] = React.useState(false);
-    const [fullWidth, setFullWidth] = React.useState(true);
+    //Pop up views details
+    const [openViewers, setOpenViewers] = React.useState(false);
+    const [fullWidth,] = React.useState(true);
 
     // Handler for delete message button
     const handleDeleteClick = () => {
@@ -147,6 +152,7 @@ export default function Messages() {
         deleteMessage();
         window.location.reload();
     }
+
     //handle open pop-up for sending msg
     const handleClickOpen = () => {
         setOpen(true);
@@ -156,13 +162,42 @@ export default function Messages() {
     const handleClose = () => {
         setOpen(false);
     };
+
+
     let msgid;
-    const handleClickcell = (e) => {
-        msgid = e;
+    const [msgViewers, setMsgViewers] = React.useState([]);
+    const [msgNotViewers, setMsgNotViewers] = React.useState([]);
+
+    const handleClickcell = (msg) => {
+        msgid = msg.id;
+        let temp = [];
+        msg.seen_by.forEach(id =>
+            temp.push(allEmployees.find(element => element["id"] === id))
+        )
+        setMsgViewers(temp);
+        temp = msg.message_destinations.filter(e => !msg.seen_by.includes(e));
+        let temp2 = [];
+        temp.forEach(id =>
+            temp2.push(allEmployees.find(element => element["id"] === id))
+        )
+        setMsgNotViewers(temp2);
+    }
+    const handleViewClick = () => {
+        setOpenViewers(true);
+    }
+
+    const handleViewClose = () => {
+        setOpenViewers(false);
     }
     // delete message button
     var deleteIcon = (<IconButton onClickCapture={handleDeleteClick}>
         <DeleteIcon color='error' />
+    </IconButton>
+    );
+
+    // View group button
+    var viewIcon = (<IconButton onClick={handleViewClick}>
+        <RemoveRedEyeIcon color='success' />
     </IconButton>
     );
 
@@ -245,10 +280,10 @@ export default function Messages() {
                         <Table sx={{ width: '100%' }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align="left">Delete</TableCell>
+                                    <TableCell align="left"></TableCell>
                                     <TableCell>Date Sent</TableCell>
                                     <TableCell align="left">Content</TableCell>
-                                    <TableCell align="left">Vues Number</TableCell>
+                                    <TableCell align="left">Views Number</TableCell>
                                     <TableCell align="left">State</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -258,14 +293,17 @@ export default function Messages() {
                                         key={row.id}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
-                                        <TableCell component="th" align="left" scope="row" onClickCapture={() => handleClickcell(row.id)} >
+                                        <TableCell component="th" align="left" scope="row" onClickCapture={() => handleClickcell(row)} >
                                             {deleteIcon}
                                         </TableCell>
                                         <TableCell component="td" scope="row">
                                             {row.date_sent}
                                         </TableCell>
                                         <TableCell align="left">{row.message_content}</TableCell>
-                                        <TableCell align="left">{row.seen_by.length}</TableCell>
+                                        <TableCell align="left" onClickCapture={() => handleClickcell(row)}>
+                                            {row.seen_by.length}
+                                            {viewIcon}
+                                        </TableCell>
                                         <TableCell align="left">{row.stat_message === 'R' ? <HourglassBottomIcon /> : <DoneAllIcon />}</TableCell>
                                     </TableRow>
                                 ))}
@@ -274,6 +312,62 @@ export default function Messages() {
                     </TableContainer>
                 </Grid>
             </Grid>
+
+
+
+            <Dialog open={openViewers} onClose={handleViewClose}>
+                <DialogContent>
+                    <Typography variant="body2">
+                        <RemoveRedEyeIcon color='primary' /> Viewers
+                    </Typography >
+                    <TableContainer component={Paper} >
+                        <Table aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Badge ID</TableCell>
+                                    <TableCell align="left">Name</TableCell>
+                                    <TableCell align="left">Email</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {msgViewers.map((row) => (
+                                    <TableRow
+                                        key={row.id}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell scope="row">
+                                            {row.id_badge}
+                                        </TableCell>
+                                        <TableCell align="left">{row.name}</TableCell>
+                                        <TableCell align="left">{row.email}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <Typography variant="body2">
+                        <VisibilityOffIcon color='primary' /> Not Viewers yet
+                    </Typography >
+                    <TableContainer component={Paper} >
+                        <Table aria-label="simple table">
+                            <TableBody>
+                                {msgNotViewers.map((row) => (
+                                    <TableRow
+                                        key={row.id}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell scope="row">
+                                            {row.id_badge}
+                                        </TableCell>
+                                        <TableCell align="left">{row.name}</TableCell>
+                                        <TableCell align="left">{row.email}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }
