@@ -270,7 +270,7 @@ export default function Employees() {
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>id_badge</TableCell>
+                                <TableCell>Badge ID</TableCell>
                                 <TableCell align="left">Name</TableCell>
                                 <TableCell align="left">Email</TableCell>
                                 <TableCell align="left"></TableCell>
