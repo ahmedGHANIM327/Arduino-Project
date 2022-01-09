@@ -317,7 +317,7 @@ export default function Messages() {
 
             <Dialog open={openViewers} onClose={handleViewClose}>
                 <DialogContent>
-                    <Typography variant="body2">
+                    <Typography className='typographieDialog' variant="body2">
                         <RemoveRedEyeIcon color='primary' /> Viewers
                     </Typography >
                     <TableContainer component={Paper} >
@@ -345,7 +345,7 @@ export default function Messages() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <Typography variant="body2">
+                    <Typography className='typographieDialog' variant="body2">
                         <VisibilityOffIcon color='primary' /> Not Viewers yet
                     </Typography >
                     <TableContainer component={Paper} >

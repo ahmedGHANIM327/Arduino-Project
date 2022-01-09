@@ -333,7 +333,7 @@ export default function Groups() {
                 </DialogActions>
             </Dialog>
 
-            <Grid className='stat-table' lg={6}>
+            <Grid className='stat-table' lg={12} container>
                 <h1>Groups</h1>
                 <TableContainer component={Paper} >
                     <Table aria-label="simple table">

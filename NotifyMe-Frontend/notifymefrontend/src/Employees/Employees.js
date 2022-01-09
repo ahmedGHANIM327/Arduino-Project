@@ -244,7 +244,7 @@ export default function Employees() {
             >
                 <DialogTitle >Edit an Employee</DialogTitle>
                 <DialogContent>
-                    <Grid container direction={"column"} spacing={3}>
+                    <Grid container direction={"column"} spacing={5}>
                         <Grid item>
                             <TextField id="time" type="text" label="Employee name" fullWidth={true} defaultValue={editedEmployeeName} onChange={handleEditedNameChange} />
                         </Grid>

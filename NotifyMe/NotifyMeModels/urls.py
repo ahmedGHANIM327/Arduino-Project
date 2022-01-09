@@ -5,6 +5,7 @@ urlpatterns = [
     #Employees
     path('employees/',views.allEmployees),
     path('employee/<int:id>',views.employee),
+    path('employeeBadge/<str:id_badge>',views.employeeBybadge),
     path('addemployees/',views.addEmployees),
     path('updateemployee/<int:id>/',views.updateEmployee),
     path('deleteemployee/<int:id>/',views.delEmployee),
@@ -31,4 +32,5 @@ urlpatterns = [
     path('deletemessage/<int:id>/',views.delMessage),
     path('messagesNotSeen/',views.messagesNotSeen),
     path('messagesSeen/',views.messagesSeen),
+    path('readFromArduino/',views.readFromArduino),
 ]

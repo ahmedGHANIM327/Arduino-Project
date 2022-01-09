@@ -17,3 +17,16 @@
   .MuiTypography-body2{
     color: rgb(24, 119, 207);
   }
+
+  .typographieDialog
+  {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px 0;
+  }
+
+  .typographieDialog svg
+  {
+    margin-right: 10px;
+  }

@@ -3,46 +3,54 @@ import './Screen.css';
 import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 import api from '../Api/Notifyme';
 import { useState , useEffect } from 'react';
-import {useNavigate } from 'react-router-dom';
+import {useNavigate,useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
-export default function Screen() {
+export default function Screen(props) {
 
     const navigate = useNavigate();
+    const location = useLocation();
+    
+    const id_badge = location.state.id_badge.replaceAll(" ","");
+    const id_employee = location.state.id_employee;
+    var employeeId;
 
+    //Get Employee informations
+    const retrieveEmployeeById = async () => {
+        const response = await api.get("employeeBadge/"+id_badge);
+        return response.data;
+    }
+
+    const [employee, setEmployee] = useState({});
+    employeeId = employee.id;
     //Retreive all messages
     const retrieveMessagesNotSeen = async () => {
-        const response = await api.get("/viewMessagesNotSeen/5");
+        const response = await api.get("/viewMessagesNotSeen/"+id_employee);
         return response.data;
     }
 
     const [messages, setMessages] = useState([]);
 
-    //Get Employee informations
-    const retrieveEmployeeById = async () => {
-        const response = await api.get("/employee/4");
-        return response.data;
-    }
+     useEffect(async () => {
 
-    const [employee, setEmployee] = useState({});
-
-    useEffect(() => {
-
+        const getEmployee = async () => {
+            const employee1 = await retrieveEmployeeById();
+            if (employee1){
+                setEmployee(employee1);
+                employeeId = employee.id;
+            } 
+        }
         const getAllMessages = async () => {
             const allmessagesnotseen = await retrieveMessagesNotSeen();
             if (allmessagesnotseen) setMessages(allmessagesnotseen);
         }
-
-        const getEmployee = async () => {
-            const employee1 = await retrieveEmployeeById();
-            if (employee1) setEmployee(employee1);
-        }
-
-
-        getAllMessages();
         getEmployee();
+        getAllMessages();
+        
     }, [])
+
+    
 
     return (
         <div id="screen">
@@ -55,7 +63,7 @@ export default function Screen() {
                 </div>                 
             ))}
 
-<Button onClick={() => navigate('/')} className='deconnexion' variant="contained" startIcon={<KeyboardArrowLeftIcon />} color="error">Finish reading</Button>
+            <Button onClick={() => navigate('/')} className='deconnexion' variant="contained" startIcon={<KeyboardArrowLeftIcon />} color="error">Finish reading</Button>
         </div>
         
     )

@@ -3,6 +3,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import EmployeeSerializer , GroupSerializer, MessageSerializer
 from .models import Employee , Group , Message
+import serial
+from django.http import HttpResponse
 # Create your views here.
 
 
@@ -28,6 +30,15 @@ def employee(request , id):
     serialization = EmployeeSerializer(employee)
     return Response(serialization.data)
 
+#Get employee by id badge
+@api_view(['GET'])
+def employeeBybadge(request , id_badge):
+    # Get all objects
+    employee = Employee.objects.get(id_badge=id_badge)
+
+    #serialize this object
+    serialization = EmployeeSerializer(employee)
+    return Response(serialization.data)
 
 #Add new employee
 @api_view(['POST'])
@@ -236,3 +247,21 @@ def checkStatut(id):
     if message.seen_by.count() == message.message_destinations.count() :
         message.stat_message = 'V'
         message.save()
+
+@api_view(['GET'])
+def readFromArduino(request):
+    '''try :
+        device = 'COM4'
+        arduino = serial.Serial('COM4', 9600)
+    except :
+        return HttpResponse("Failed to connect on arduino")'''
+
+    arduino = serial.Serial('COM4', 9600)
+
+    while True :
+        try :
+            data = arduino.readlines()
+            print(data)
+            return HttpResponse(data)
+        except :
+            return  HttpResponse("Processing")

@@ -36,8 +36,6 @@ void loop() {
   }
 
   // Affichage de l'ID
-  Serial.println("Un badge est détecté");
-  Serial.println(" L'UID du tag est:");
   for (byte i = 0; i < 4; i++) {
     Serial.print(nuidPICC[i] , HEX);
     Serial.print(" ");
