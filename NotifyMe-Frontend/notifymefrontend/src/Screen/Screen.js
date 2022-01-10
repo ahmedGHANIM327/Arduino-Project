@@ -6,15 +6,25 @@ import { useState , useEffect } from 'react';
 import {useNavigate,useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import { io } from 'socket.io-client'
+
 
 export default function Screen(props) {
 
     const navigate = useNavigate();
     const location = useLocation();
+    const socket = io("http://localhost:4000");
     
     const id_badge = location.state.id_badge.replaceAll(" ","");
     const id_employee = location.state.id_employee;
     var employeeId;
+
+    socket.on("send-id", (arg) => {  
+        setTimeout(() => {  
+            navigate('/');
+        }, 1000);
+        
+    });
 
     //Get Employee informations
     const retrieveEmployeeById = async () => {
@@ -23,7 +33,7 @@ export default function Screen(props) {
     }
 
     const [employee, setEmployee] = useState({});
-    employeeId = employee.id;
+    //employeeId = employee.id;
     //Retreive all messages
     const retrieveMessagesNotSeen = async () => {
         const response = await api.get("/viewMessagesNotSeen/"+id_employee);
@@ -38,7 +48,7 @@ export default function Screen(props) {
             const employee1 = await retrieveEmployeeById();
             if (employee1){
                 setEmployee(employee1);
-                employeeId = employee.id;
+                //employeeId = employee.id;
             } 
         }
         const getAllMessages = async () => {
