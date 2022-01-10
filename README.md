@@ -1,5 +1,5 @@
 # Arduino-Project
-Un système de diffusion d’annonces entre le personnel d’un magasin , d’un hôtel, restaurant ...Des écrans sont installlés dans les locaux avec des lecteurs de badges à côté, Un employé badge et voit apparaître sur l’écran ses nouveaux messages pas encore lus.
+Un système de diffusion d’annonces entre le personnel d’un magasin , d’un hôtel, restaurant ...Des écrans sont installés dans les locaux avec des lecteurs de badges à côté, Un employé badge et voit apparaître sur l’écran ses nouveaux messages pas encore lus.
 ## /NotifyMe-Frontend/notifymefrontend:
 Le front-End de l'appliccation .
 ### /src/Screen : 
